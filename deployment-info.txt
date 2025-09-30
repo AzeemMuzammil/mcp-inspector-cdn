@@ -1,0 +1,33 @@
+MCP Inspector CDN Deployment Package
+===================================
+
+Generated on: Tue Sep 30 12:54:46 +0530 2025
+Version: 0.16.8
+
+Files included:
+- index.html (Main application)
+- assets/ (JavaScript and CSS bundles)
+- mcp.svg (Application icon)
+- integration-example.html (Example integration)
+
+CDN Deployment Instructions:
+1. Upload all files to your CDN
+2. Ensure proper MIME types:
+   - .js files as application/javascript
+   - .css files as text/css
+   - .svg files as image/svg+xml
+   - .html files as text/html
+
+3. Configure CORS headers if needed
+4. Test the deployment using integration-example.html
+
+CDN URL Structure:
+your-cdn-domain.com/
+├── index.html
+├── mcp.svg
+├── integration-example.html
+└── assets/
+    ├── index-[hash].js
+    └── index-[hash].css
+
+For support, visit: https://github.com/modelcontextprotocol/inspector
