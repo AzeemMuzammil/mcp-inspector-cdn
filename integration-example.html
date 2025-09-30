@@ -83,7 +83,7 @@
             <div class="controls">
                 <button onclick="loadInspector()" id="loadBtn">Load MCP Inspector</button>
                 <button onclick="clearInspector()" id="clearBtn" disabled>Clear Inspector</button>
-                <span class="status disconnected" id="status">Not loaded</span>
+                <span class="status disconnected" id="status">Ready to load</span>
             </div>
             
             <div class="mcp-container">
@@ -102,14 +102,20 @@
     <script>
         let inspectorLoaded = false;
         
+        // Add some debugging
+        console.log('Integration example page loaded');
+        
         function loadInspector() {
+            console.log('Loading MCP Inspector...');
             const iframe = document.getElementById('mcpFrame');
             const loadBtn = document.getElementById('loadBtn');
             const clearBtn = document.getElementById('clearBtn');
             const status = document.getElementById('status');
             
-            // Load the inspector (use relative path since we're in the same directory)
-            iframe.src = './index.html';
+            // Load the inspector using absolute path for GitHub Pages
+            const inspectorUrl = window.location.origin + window.location.pathname.replace('integration-example.html', 'index.html');
+            console.log('Loading inspector from:', inspectorUrl);
+            iframe.src = inspectorUrl;
             
             loadBtn.disabled = true;
             clearBtn.disabled = false;
@@ -118,12 +124,14 @@
             
             // Listen for load events
             iframe.onload = function() {
+                console.log('Inspector loaded successfully');
                 inspectorLoaded = true;
                 status.textContent = 'Loaded';
                 status.className = 'status connected';
             };
             
             iframe.onerror = function() {
+                console.error('Failed to load inspector');
                 status.textContent = 'Load failed';
                 status.className = 'status disconnected';
                 loadBtn.disabled = false;
@@ -168,10 +176,17 @@
             }
         });
         
-        // Auto-load inspector on page load for demo
-        window.onload = function() {
-            setTimeout(loadInspector, 1000);
-        };
+        // Remove auto-load to prevent issues - let user manually load
+        // window.onload = function() {
+        //     setTimeout(loadInspector, 1000);
+        // };
+        
+        // Add page load confirmation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            const status = document.getElementById('status');
+            status.textContent = 'Ready - Click "Load MCP Inspector" to start';
+        });
     </script>
 </body>
 </html>
